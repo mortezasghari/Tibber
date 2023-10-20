@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using Tibber.TechnicalCase.Domain.Dtos;
 using Tibber.TechnicalCase.Domain.Repositories;

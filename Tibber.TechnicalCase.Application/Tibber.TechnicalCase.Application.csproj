@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Tibber.TechnicalCase.Domain\Tibber.TechnicalCase.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
