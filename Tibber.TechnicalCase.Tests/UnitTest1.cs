@@ -4,9 +4,30 @@ using Tibber.TechnicalCase.Domain.Dtos;
 
 namespace Tibber.TechnicalCase.Tests;
 
-public class UnitTest1
+public class RobotServiceTests
 {
     IRobotService _robotService = new RobotService();
+
+    [Fact] 
+    public void TEST_COMMAND_BEFORE_INITIALIZATION() 
+    {
+        Command command = new Command(Direction.North, 2);
+        Assert.Throws<InvalidOperationException>(() => _robotService.Move(command));
+    }
+
+    [Fact]
+    public void TEST_COMMANDS_BEFORE_INITIALIZATION()
+    {
+        Command[] commands = new Command[] { new Command(Direction.North, 2) };
+        Assert.Throws<InvalidOperationException>(() => _robotService.Move(commands));
+    }
+
+    [Fact]
+    public void TEST_UNIQUE_CLEANED_POSITIONS_BEFORE_INITIALIZATION()
+    {
+        Assert.Throws<InvalidOperationException>(() => _robotService.UniqueCleanedPlaces());
+        Assert.Throws<InvalidOperationException>(() => _robotService.UniqueCleanedPositions());
+    }
 
     [Fact]
     public void TEST_ONE_COMMAND_NORTH()
