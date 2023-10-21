@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  tibber.technicalcase:
+    image: ${DOCKER_REGISTRY-}tibbertechnicalcase
+    build:
+      context: .
+      dockerfile: Tibber.TechnicalCase/Dockerfile
