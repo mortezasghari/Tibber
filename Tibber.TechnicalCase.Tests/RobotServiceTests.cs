@@ -11,7 +11,7 @@ public class RobotServiceTests
     [Fact] 
     public void TEST_COMMAND_BEFORE_INITIALIZATION() 
     {
-        Command command = new Command(Direction.North, 2);
+        Command command = new(Direction.North, 2);
         Assert.Throws<InvalidOperationException>(() => _robotService.Move(command));
     }
 
@@ -35,7 +35,7 @@ public class RobotServiceTests
         Position position = new(1, 1);
         _robotService.Initialize(position);
 
-        Command command = new Command(Direction.North, 2);
+        Command command = new(Direction.North, 2);
         _robotService.Move(command);
 
         var result = _robotService.UniqueCleanedPlaces();
@@ -55,7 +55,7 @@ public class RobotServiceTests
         Position position = new(1, 1);
         _robotService.Initialize(position);
 
-        Command command = new Command(Direction.South, 2);
+        Command command = new(Direction.South, 2);
         _robotService.Move(command);
 
         var result = _robotService.UniqueCleanedPlaces();
@@ -75,7 +75,7 @@ public class RobotServiceTests
         Position position = new(1, 1);
         _robotService.Initialize(position);
 
-        Command command = new Command(Direction.East, 2);
+        Command command = new(Direction.East, 2);
         _robotService.Move(command);
 
         var result = _robotService.UniqueCleanedPlaces();
@@ -95,7 +95,7 @@ public class RobotServiceTests
         Position position = new(1, 1);
         _robotService.Initialize(position);
 
-        Command command = new Command(Direction.West, 2);
+        Command command = new(Direction.West, 2);
         _robotService.Move(command);
 
         var result = _robotService.UniqueCleanedPlaces();
@@ -118,8 +118,8 @@ public class RobotServiceTests
 
         Command[] commands = new Command[]
         {
-            new Command(Direction.North, 3), 
-            new Command(Direction.East, 2),
+            new(Direction.North, 3), 
+            new(Direction.East, 2),
         };
 
         _robotService.Move(commands);
@@ -146,8 +146,8 @@ public class RobotServiceTests
 
         Command[] commands = new Command[]
         {
-            new Command(Direction.North, 3),
-            new Command(Direction.South, 2),
+            new(Direction.North, 3),
+            new(Direction.South, 2),
         };
                 
         _robotService.Move(commands);
