@@ -4,7 +4,9 @@ namespace Tibber.TechnicalCase.Domain.Services;
 
 public interface IRobotService
 {
-    int Move(Command commands);
+    int Move(Command command);
+    void Move(IEnumerable<Command> commands);
+
     void Initialize(Position start);
 
     int UniqueCleanedPlaces();

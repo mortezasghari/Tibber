@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Tibber.TechnicalCase.Domain.Repositories;
+using Tibber.TechnicalCase.Infrastructure.Mappers;
 using Tibber.TechnicalCase.Infrastructure.Repositories;
 
 namespace Tibber.TechnicalCase.Infrastructure.Extensions;
@@ -10,13 +11,11 @@ public static class StartUpExtensions
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        var coonectionString = configuration.GetConnectionString("DefaultConnection");
+        services.AddDbContext<TibberDbContext>(options => options.UseNpgsql(coonectionString));
 
-        services.AddDbContext<TibberDbContext>(options =>
-        {
-            options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
-        });
-
+        services.AddHostedService<CheckMigerationService>();
         services.AddScoped<IResultRepository, ResultRepository>();
-        services.AddAutoMapper(typeof(StartUpExtensions).Assembly);        
+        services.AddAutoMapper(typeof(ResultMapperProfile).Assembly);
     }
 }

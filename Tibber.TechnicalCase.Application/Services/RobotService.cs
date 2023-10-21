@@ -28,6 +28,15 @@ internal class RobotService : IRobotService
         return _cleanedPositions.Count - count;
     }
 
+    public void Move(IEnumerable<Command> commands)
+    { 
+        foreach (var command in commands)
+        {
+            Move(command);
+        }
+    }
+
+
     public int UniqueCleanedPlaces()
     {
         CheckInitialized();

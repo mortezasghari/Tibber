@@ -28,12 +28,11 @@ internal class ResultRepository : IResultRepository
         return _mapper.Map<ResultDto[]>(results);
     }
 
-    public async Task<ResultDto> AppendResultAsync(int commands, int result, DateTimeOffset time,
+    public async Task<ResultDto> AppendResultAsync(int commands, int result, double duration, DateTimeOffset time,
         CancellationToken cancellationToken = default)
     {
-        var resultEntity = new ResultEntity()
-        {
-            TimeStamp = time, Commands = commands, Duration = (DateTimeOffset.UtcNow - time).TotalSeconds, Result = result
+        var resultEntity = new ResultEntity() {
+            TimeStamp = time, Commands = commands, Duration = duration, Result = result
         };
 
         await _db.Results.AddAsync(resultEntity, cancellationToken);
