@@ -14,7 +14,7 @@ internal class RobotService : IRobotService
         _cleanedPositions = new HashSet<Position> { start };
     }
 
-    public int Move(Command commands)
+    public void Move(Command commands)
     {
         CheckInitialized();
 
@@ -23,9 +23,7 @@ internal class RobotService : IRobotService
             .Select(r => CalculatePosition(commands.Direction, r));
                 
         _cleanedPositions.UnionWith(positions);
-
         _currentPosition = positions.Last();
-        return _cleanedPositions.Count - count;
     }
 
     public void Move(IEnumerable<Command> commands)

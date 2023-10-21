@@ -18,11 +18,11 @@ internal class CheckMigerationService : IHostedService
 
         await using var scope = _serviceProvider.CreateAsyncScope();
         await using var db = scope.ServiceProvider.GetRequiredService<TibberDbContext>();
-                
-        var pendding = await db.Database.GetPendingMigrationsAsync(cancellationToken);
 
-        if (pendding.Any()) 
-            await db.Database.MigrateAsync(cancellationToken);
+        if (db.Database.ProviderName != "Npgsql.EntityFrameworkCore.PostgreSQL") return;        
+
+        var pendding = await db.Database.GetPendingMigrationsAsync(cancellationToken);
+        if (pendding.Any()) await db.Database.MigrateAsync(cancellationToken);
     }
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;

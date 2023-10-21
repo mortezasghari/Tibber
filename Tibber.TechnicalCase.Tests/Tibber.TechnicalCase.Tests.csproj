@@ -10,6 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.12" />
+    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="7.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.12" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.1" />
     <PackageReference Include="xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
@@ -26,6 +29,7 @@
     <ProjectReference Include="..\Tibber.TechnicalCase.Application\Tibber.TechnicalCase.Application.csproj" />
     <ProjectReference Include="..\Tibber.TechnicalCase.Domain\Tibber.TechnicalCase.Domain.csproj" />
     <ProjectReference Include="..\Tibber.TechnicalCase.Infrastructure\Tibber.TechnicalCase.Infrastructure.csproj" />
+    <ProjectReference Include="..\Tibber.TechnicalCase\Tibber.TechnicalCase.csproj" />
   </ItemGroup>
 
 </Project>
