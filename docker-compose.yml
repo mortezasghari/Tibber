@@ -6,3 +6,36 @@ services:
     build:
       context: .
       dockerfile: Tibber.TechnicalCase/Dockerfile
+    environment:
+      ASPNETCORE_URLS: http://+:80
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: ${ConnectionString}
+    ports:
+      - "5000:80"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+    networks:
+      - backend
+      - db_network
+    depends_on:
+      - db
+  db:
+    image: postgres:14.1-alpine
+    container_name: db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DbPassword}
+    volumes:
+      - db:/var/lib/postgresql/data
+    networks:
+      - db_network
+
+volumes:
+  db:
+    driver: local
+
+networks:
+  backend:
+  db_network:
+    

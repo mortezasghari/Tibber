@@ -16,8 +16,8 @@ RUN dotnet restore "Tibber.TechnicalCase/Tibber.TechnicalCase.csproj"
 RUN dotnet restore "Tibber.TechnicalCase.Tests/Tibber.TechnicalCase.Tests.csproj"
 
 COPY . .
-RUN dotnet build "Tibber.TechnicalCase.Tests/Tibber.TechnicalCase.Tests.csproj" -c Release -o /app/build
-RUN dotnet test "Tibber.TechnicalCase.Tests/Tibber.TechnicalCase.Tests.csproj" -c Release -o /app/build
+RUN dotnet build "Tibber.TechnicalCase.Tests/Tibber.TechnicalCase.Tests.csproj"
+RUN dotnet test "Tibber.TechnicalCase.Tests/Tibber.TechnicalCase.Tests.csproj"
 
 WORKDIR "/src/Tibber.TechnicalCase"
 RUN dotnet build "Tibber.TechnicalCase.csproj" -c Release -o /app/build
