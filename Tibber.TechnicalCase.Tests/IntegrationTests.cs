@@ -12,8 +12,8 @@ namespace Tibber.TechnicalCase.Tests;
 
 public class IntegrationTests : IDisposable
 {
-    private SqliteConnection _connectionIdentity;
-    private WebApplicationFactory<Program> _webApplication;
+    private readonly SqliteConnection _connectionIdentity;
+    private readonly WebApplicationFactory<Program> _webApplication;
     private const string url = "/tibber-developer-test/enter-path";
     private bool disposedValue;
 
@@ -196,6 +196,49 @@ public class IntegrationTests : IDisposable
         Assert.NotNull(result);
         Assert.Equal(5, result.Result);
         Assert.Equal(2, result.Commands);
+    }
+    
+    [Fact] public async Task TEST_ZERO_COMMAND_ASYNC()
+    {
+        Position start = new(1, 1);
+        Command[] commands = Array.Empty<Command>();
+
+        RequestViewModel viewModel = new(start, commands);
+
+        var cleint = _webApplication.CreateClient(
+            new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
+
+        var response = await cleint.PostAsJsonAsync(url, viewModel);
+
+        Assert.NotNull(response);
+        Assert.Equal(System.Net.HttpStatusCode.OK, response.StatusCode);
+
+        var result = await response.Content.ReadFromJsonAsync<ResultDto>();
+        Assert.NotNull(result);
+        Assert.Equal(1, result.Result);
+        Assert.Equal(0, result.Commands);
+    }
+
+    [Fact] public async Task TEST_ZERO_STEP_COMMAND_ASYNC()
+    {
+        Position start = new(1, 1);
+        Command[] commands = new Command[] { new(Direction.South, 0) };
+
+        RequestViewModel viewModel = new(start, commands);
+
+        var cleint = _webApplication.CreateClient(
+            new WebApplicationFactoryClientOptions
+            {
+                AllowAutoRedirect = false
+            });
+
+        var response = await cleint.PostAsJsonAsync(url, viewModel);
+
+        Assert.NotNull(response);
+        Assert.Equal(System.Net.HttpStatusCode.BadRequest, response.StatusCode);
     }
 
     protected virtual void Dispose(bool disposing)

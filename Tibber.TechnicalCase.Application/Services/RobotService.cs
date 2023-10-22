@@ -23,7 +23,7 @@ internal class RobotService : IRobotService
             .Select(r => CalculatePosition(commands.Direction, r));
                 
         _cleanedPositions.UnionWith(positions);
-        _currentPosition = positions.Last();
+        _currentPosition = positions.LastOrDefault() ?? _currentPosition;
     }
 
     public void Move(IEnumerable<Command> commands)
@@ -33,7 +33,6 @@ internal class RobotService : IRobotService
             Move(command);
         }
     }
-
 
     public int UniqueCleanedPlaces()
     {

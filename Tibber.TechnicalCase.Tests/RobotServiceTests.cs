@@ -6,7 +6,7 @@ namespace Tibber.TechnicalCase.Tests;
 
 public class RobotServiceTests
 {
-    IRobotService _robotService = new RobotService();
+    private readonly IRobotService _robotService = new RobotService();
 
     [Fact] 
     public void TEST_COMMAND_BEFORE_INITIALIZATION() 
@@ -27,6 +27,42 @@ public class RobotServiceTests
     {
         Assert.Throws<InvalidOperationException>(() => _robotService.UniqueCleanedPlaces());
         Assert.Throws<InvalidOperationException>(() => _robotService.UniqueCleanedPositions());
+    }
+
+    [Fact]
+    public void TEST_ZERO_COMMAND()
+    {
+        Position position = new(1, 1);
+        _robotService.Initialize(position);
+
+        Command[] command = Array.Empty<Command>();
+        _robotService.Move(command);
+
+        var result = _robotService.UniqueCleanedPlaces();
+        Assert.Equal(1, result);
+
+        var cleaned = _robotService.UniqueCleanedPositions();
+
+        Assert.Single(cleaned);
+        Assert.Equal(position, cleaned[0]);
+    }
+
+    [Fact]
+    public void TEST_ZERO_STEP_COMMAND()
+    {
+        Position position = new(1, 1);
+        _robotService.Initialize(position);
+
+        Command command = new(Direction.North, 0);
+        _robotService.Move(command);
+
+        var result = _robotService.UniqueCleanedPlaces();
+        Assert.Equal(1, result);
+
+        var cleaned = _robotService.UniqueCleanedPositions();
+        
+        Assert.Single(cleaned);
+        Assert.Equal(position, cleaned[0]);
     }
 
     [Fact]
