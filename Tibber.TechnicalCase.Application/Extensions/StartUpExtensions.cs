@@ -9,5 +9,6 @@ public static class StartUpExtensions
     public static void AddApplication(this IServiceCollection services)
     {
         services.AddScoped<IRobotService, RobotService>();
+        services.AddScoped<ICleaningService, CleaningService>();
     }
 }
