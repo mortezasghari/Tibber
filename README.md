@@ -14,4 +14,4 @@ docker compose ps
 2 container should be runing one postgres database and one application, 
 
 ## How to access
-You can use the following [link to use this application](http://localhost:5000/swagger/index.html)
+After validating the application is runing successfuly, You can use this link to access the swagger documentation (http://localhost:5000/swagger/index.html)
